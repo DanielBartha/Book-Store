@@ -1,5 +1,5 @@
 package Factory;
 
 public interface BookFactory {
-    Book createBook();
+    Book createBook(Object[] bookInfo);
 }
