@@ -12,7 +12,7 @@ public class FictionBook extends Book {
 
     @Override
     public String displayInfo() {
-        return MessageFormat.format("Book title: {0}\n", this.title);
+        return MessageFormat.format("Book title: {0}\nType: Fiction Book\nAuthor: {1}\nPrice: {2}\nSummary: {3}" , this.title,this.author,this.price,this.summary);
     }
 
    

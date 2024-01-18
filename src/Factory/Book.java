@@ -11,19 +11,19 @@ public abstract class Book {
 
     public abstract String displayInfo();
  
-    public String displayTitle(){
+    public String getTitle(){
         return this.title;
     }
 
-    public String displayAuthor(){
+    public String getAuthor(){
         return this.author;
     }
 
-    public int displayPrice(){
+    public int getPrice(){
         return this.price;
     }
 
-    public String displaySummary(){
+    public String getSummary(){
         return this.summary;
     }
 }
