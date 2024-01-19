@@ -5,6 +5,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import Command.ShoppingCartInvoker;
+import Command.ShowBooksInCart;
+import Command.ShowSumOfPricesCommand;
 import Decorator.GiftWrappingDecorator;
 import Factory.Book;
 import Factory.BookFactory;
@@ -25,6 +28,7 @@ public class Bookstore {
     private BookObserver bookObserver = new BookObserver();
     private User user = new User();
 
+
     private static String[] bookStoreCommands = {
             "help        | shows all the commands that you can use",
             "show-books  | shows all available books",
@@ -38,6 +42,8 @@ public class Bookstore {
         // Private constructor to prevent instantiation
 
         System.out.println("You can use the following commands to navigate the Book Store:");
+        shoppingCartInvoker.addCommand(addToCartCommand);
+        shoppingCartInvoker.addCommand(showSumOfPricesCommand);
 
         showHelp();
     }
@@ -194,7 +200,7 @@ public class Bookstore {
         removeObserver(user);
   
     private void resetShoppingCart() {
-        this.addToCartCommand = new showBooksInCart();
+        this.addToCartCommand = new ShowBooksInCart();
         this.showSumOfPricesCommand = new ShowSumOfPricesCommand();
         this.shoppingCartInvoker = new ShoppingCartInvoker();
         shoppingCartInvoker.addCommand(addToCartCommand);
