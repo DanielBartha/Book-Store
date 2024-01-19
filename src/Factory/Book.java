@@ -1,5 +1,7 @@
 package Factory;
 
+import java.text.MessageFormat;
+
 public abstract class Book {
     protected String title;
 
@@ -7,9 +9,16 @@ public abstract class Book {
 
     protected int price;
 
-    protected String summary;
+    protected String type;
 
+    protected String summary;
+  
     protected Boolean isWrapped = false;
+
+
+    public String displayInfo() {
+        return MessageFormat.format("Book title: {0}\nType: {1}\nAuthor: {2}\nPrice: {3}€\nSummary: {4}" , this.title,this.type,this.author,this.price,this.summary);
+    }
 
     public abstract String displayInfo();
 
@@ -27,6 +36,15 @@ public abstract class Book {
 
     public String getSummary() {
         return this.summary;
+    }
+
+
+    public String getType(){
+        return this.type;
+    }
+
+    public void setPrice(int price){
+        this.price = price;
     }
 
     public Boolean getIsWrapped() {

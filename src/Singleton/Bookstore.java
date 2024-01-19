@@ -174,6 +174,14 @@ public class Bookstore {
         return -1;
     }
 
+    public Book getBookByTitle(String title) {
+        for (Book book : this.bookList) {
+            if (book.getTitle().equalsIgnoreCase(title))
+                return book;
+        }
+        return null;
+    }
+
     public void checkIfBookExists(int bookId){
         if (bookId != -1) {
             System.out.println("\n"+this.bookList.get(bookId).displayInfo());
