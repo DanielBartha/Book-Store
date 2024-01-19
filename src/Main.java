@@ -4,13 +4,16 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
+        // Setting variables
         Scanner scanner = new Scanner(System.in);
         BookBasedOnAgeProxy bookBasedOnAgeProxy = new BookBasedOnAgeProxy();
         Bookstore bookstore = Bookstore.getInstance();
-
+     
+        
         // Asking for user age
         System.out.print("Please tell me your age: ");
         int age = checkForAge(scanner);
+        
 
         // Setting the age appropriate boooks
         bookBasedOnAgeProxy.setAge(age);
