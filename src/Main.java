@@ -10,18 +10,19 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
         Bookstore bookstore = Bookstore.getInstance();
         BookFactory bookFactory = new FictionBookFactory();
+        bookStoreLoop(scanner, bookstore);
+    }
 
+    private static void bookStoreLoop(Scanner scanner, Bookstore bookstore){
         Boolean shouldContinue = true;
-
         String userInput = "";
-
         do {
-            userInput = scanner.nextLine();
-            if(userInput.equals("quit")){
+            System.out.print("\nType a command: ");
+            userInput = scanner.nextLine(); 
+            if (userInput.equals("quit")) {
                 shouldContinue = false;
             }
             bookstore.handleInput(userInput);
         } while (shouldContinue);
-        scanner.close();
     }
 }
