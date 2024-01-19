@@ -207,5 +207,12 @@ public class Bookstore {
         notifyObservers(this.bookList.get(randomBook));
         removeObserver(bookObserver);
         removeObserver(user);
+  
+    private void resetShoppingCart() {
+        this.addToCartCommand = new showBooksInCart();
+        this.showSumOfPricesCommand = new ShowSumOfPricesCommand();
+        this.shoppingCartInvoker = new ShoppingCartInvoker();
+        shoppingCartInvoker.addCommand(addToCartCommand);
+        shoppingCartInvoker.addCommand(showSumOfPricesCommand);
     }
 }
