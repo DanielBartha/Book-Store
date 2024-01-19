@@ -11,6 +11,7 @@ import Factory.BookFactory;
 import Factory.FictionBook;
 import Factory.FictionBookFactory;
 import Observer.BookObserver;
+import Observer.User;
 
 public class Bookstore {
     private static Bookstore instance;
@@ -18,6 +19,8 @@ public class Bookstore {
     private Scanner scanner = new Scanner(System.in);
     private List<Book> bookList = new ArrayList<>();
     private List<Book> cart = new ArrayList<>();
+    private BookObserver bookObserver = new BookObserver();
+    private User user = new User();
 
     private Object[][] booksInfo = {
             { "The Lord of the Rings", "J.R.R Tolkien", 60,
@@ -196,6 +199,15 @@ public class Bookstore {
             System.out.println(wrapper.displayInfo());
         }
     }
+
+    private void displayDiscount(int randomBook) {
+        addObserver(user);
+        addObserver(bookObserver);
+        System.out.println();
+        notifyObservers(this.bookList.get(randomBook));
+        removeObserver(bookObserver);
+        removeObserver(user);
+  
     private void resetShoppingCart() {
         this.addToCartCommand = new showBooksInCart();
         this.showSumOfPricesCommand = new ShowSumOfPricesCommand();
