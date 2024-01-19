@@ -5,9 +5,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-import Command.ShoppingCartInvoker;
-import Command.ShowSumOfPricesCommand;
-import Command.showBooksInCart;
 import Decorator.GiftWrappingDecorator;
 import Factory.Book;
 import Factory.BookFactory;
@@ -21,9 +18,6 @@ public class Bookstore {
     private Scanner scanner = new Scanner(System.in);
     private List<Book> bookList = new ArrayList<>();
     private List<Book> cart = new ArrayList<>();
-    private showBooksInCart addToCartCommand = new showBooksInCart();
-    private ShowSumOfPricesCommand showSumOfPricesCommand = new ShowSumOfPricesCommand();
-    private ShoppingCartInvoker shoppingCartInvoker = new ShoppingCartInvoker();
 
     private Object[][] booksInfo = {
             { "The Lord of the Rings", "J.R.R Tolkien", 60,
@@ -64,8 +58,6 @@ public class Bookstore {
         for (Object[] book : booksInfo) {
             this.bookList.add(bookFactory.createBook(book));
         }
-        shoppingCartInvoker.addCommand(addToCartCommand);
-        shoppingCartInvoker.addCommand(showSumOfPricesCommand);
         showHelp();
     }
 
@@ -78,6 +70,7 @@ public class Bookstore {
     public static Bookstore getInstance() {
         if (instance == null) {
             instance = new Bookstore();
+            // Initialize necessary attributes
         }
         return instance;
     }
@@ -100,18 +93,21 @@ public class Bookstore {
     }
 
     public void addToCart(String bookTitle) {
-        Book book = getBookByTitle(bookTitle);
-        if (book == null) {
-            System.out.println("Book not found. Please check the title and try again.");
-        } else {
-            System.out.println("Book successfully added to cart");
-            this.addToCartCommand.addToCart(book);
+        for (Book book : bookList) {
+            if (book.getTitle().equalsIgnoreCase(bookTitle)) {
+                cart.add(book);
+                System.out.println("Book successfully added to cart");
+                notifyObservers(book); // Notify observers about the added book
+                return;
+            }
         }
+
+        System.out.println("Book not found. Please check the title and try again.");
     }
 
     public void showCart() {
         System.out.println("Books in your cart:");
-        for (Book book : addToCartCommand.getBooksInShoppingCart()) {
+        for (Book book : cart) {
             System.out.println(book.getTitle());
         }
     }
@@ -149,14 +145,13 @@ public class Bookstore {
             if(idBasedOnInput ==-1){
                 System.out.println(MessageFormat.format("There are no such book as: {0}", addBookToCart));
             }else{
-                System.out.println(MessageFormat.format("You have payed {0}€", this.showSumOfPricesCommand.getPrice()));
-                resetShoppingCart();
+                askIfWrapped(wrapInput, idBasedOnInput);
+                this.addToCart(addBookToCart);
             }
                 break;
 
             case "show-cart":
-            showSumOfPricesCommand.setBookList(this.addToCartCommand.getBooksInShoppingCart());
-            shoppingCartInvoker.executeCommands();
+                System.out.println(userInput);
                 break;
 
             case "quit":
@@ -200,13 +195,5 @@ public class Bookstore {
             GiftWrappingDecorator wrapper = new GiftWrappingDecorator(this.bookList.get(decoratedBookId));
             System.out.println(wrapper.displayInfo());
         }
-    }
-
-    private void resetShoppingCart() {
-        this.addToCartCommand = new showBooksInCart();
-        this.showSumOfPricesCommand = new ShowSumOfPricesCommand();
-        this.shoppingCartInvoker = new ShoppingCartInvoker();
-        shoppingCartInvoker.addCommand(addToCartCommand);
-        shoppingCartInvoker.addCommand(showSumOfPricesCommand);
     }
 }
