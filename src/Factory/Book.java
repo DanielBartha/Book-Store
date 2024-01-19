@@ -20,8 +20,6 @@ public abstract class Book {
         return MessageFormat.format("Book title: {0}\nType: {1}\nAuthor: {2}\nPrice: {3}€\nSummary: {4}" , this.title,this.type,this.author,this.price,this.summary);
     }
 
-    public abstract String displayInfo();
-
     public String getTitle() {
         return this.title;
     }

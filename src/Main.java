@@ -1,8 +1,4 @@
 import Proxy.BookBasedOnAgeProxy;
-import Factory.Book;
-import Factory.BookFactory;
-import Factory.FictionBook;
-import Factory.FictionBookFactory;
 import Singleton.Bookstore;
 import java.util.Scanner;
 
@@ -22,17 +18,36 @@ public class Main {
         System.out.println(bookBasedOnAgeProxy.getInfo());
         bookstore.setBookInformation(bookBasedOnAgeProxy.getListOfBooks());
 
-        Boolean shouldContinue = true;
+        // Starting the bookstore loop
+        bookStoreLoop(scanner, bookstore);
+        scanner.close();
+    }
 
-        String userInput = "";
-
+    private static int checkForAge(Scanner scanner) {
+        Boolean isNotNumber = true;
+        int age = 0;
         do {
-            userInput = scanner.nextLine();
-            if(userInput.equals("quit")){
+            // Checking for number input
+            try {
+                age = Integer.parseInt(scanner.nextLine());
+                isNotNumber = false;
+            } catch (NumberFormatException ex) {
+                System.out.println("This is not a number, please use a number");
+            }
+        } while (isNotNumber);
+        return age;
+    }
+
+    private static void bookStoreLoop(Scanner scanner, Bookstore bookstore){
+        Boolean shouldContinue = true;
+        String userInput = "";
+        do {
+            System.out.print("\nType a command: ");
+            userInput = scanner.nextLine(); 
+            if (userInput.equals("quit")) {
                 shouldContinue = false;
             }
             bookstore.handleInput(userInput);
         } while (shouldContinue);
-        scanner.close();
     }
 }

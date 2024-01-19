@@ -8,42 +8,22 @@ import java.util.Scanner;
 import Decorator.GiftWrappingDecorator;
 import Factory.Book;
 import Factory.BookFactory;
-import Factory.FictionBook;
 import Factory.FictionBookFactory;
 import Observer.BookObserver;
 import Observer.User;
 
 public class Bookstore {
+
+    private Scanner scanner = new Scanner(System.in);
+
     private static Bookstore instance;
     private BookFactory bookFactory = new FictionBookFactory();
-    private Scanner scanner = new Scanner(System.in);
+
     private List<Book> bookList = new ArrayList<>();
+    private List<Integer> bookIdsNotOnSale = new ArrayList<>();
     private List<Book> cart = new ArrayList<>();
     private BookObserver bookObserver = new BookObserver();
     private User user = new User();
-
-    private Object[][] booksInfo = {
-            { "The Lord of the Rings", "J.R.R Tolkien", 60,
-                    "The Lord of the Rings is the saga of a group of sometimes reluctant heroes who set forth to save their world from consummate evil. Its many worlds and creatures were drawn from Tolkien's extensive knowledge of philology and folklore." },
-            { "Wolf Hall", "Hilary Mantel", 50,
-                    "Thomas Cromwell proves he is an ambitious man by becoming the chief advisor to King Henry VII." },
-            { "The Great Gatsby", "F. Scott Fitzgerald", 64,
-                    "Millionaire Jay Gatsby longs to be with the woman he loves, even though she’s married to someone else." },
-            { "American Psycho", "Bret Easton Ellis", 55,
-                    "Patrick Bateman appears to have the perfect life, but under the surface lurks a psychopath with a lesson for all of us." },
-            { "Nineteen Eighty-Four", "George Orwell", 70,
-                    "In a dystopian society where Big Brother watches everyone, Winston Smith attempts to rebel against the Party in the name of liberty and truth." },
-            { "The Road", "Cormac McCarthy", 40,
-                    "A father and son walk through a post-apocalyptic America trying to survive." },
-            { "To Kill a Mockingbird", "Harper Lee", 62,
-                    "Scout Finch narrates the story of how her father defended a black man in a case where he was falsely accused of raping a white girl." },
-            { "Moby Dick", "Herman Melville", 35,
-                    "Ishmael, a sailor, joins the crew of a whaling ship and sets sail under the direction of a captain who is obsessed with killing the famous whale, Moby Dick." },
-            { "One Flew Over the Cuckoo’s", "Ken Kesey", 50,
-                    "Chief Bromden narrates the story about how a new patient at the Oregon State mental hospital challenges the powers which aim to keep the patients imprisoned." },
-            { "Catch-22", "Joseph Heller", 60,
-                    "Stationed in the Mediterranean Sea toward the end of World War II, Yossarian sees no escape from the enemy or from the army he’s a part of." },
-    };
 
     private static String[] bookStoreCommands = {
             "help        | shows all the commands that you can use",
@@ -58,9 +38,7 @@ public class Bookstore {
         // Private constructor to prevent instantiation
 
         System.out.println("You can use the following commands to navigate the Book Store:");
-        for (Object[] book : booksInfo) {
-            this.bookList.add(bookFactory.createBook(book));
-        }
+
         showHelp();
     }
 
@@ -190,6 +168,13 @@ public class Bookstore {
             System.out.println("\n"+this.bookList.get(bookId).displayInfo());
         } else {
             System.out.println("\nWe don't have that book in our store");
+        }
+    }
+
+    public void setBookInformation(List<Book> list) {
+        this.bookList = list;
+        for (int i = 0; i < this.bookList.size(); i++) {
+            this.bookIdsNotOnSale.add(i);
         }
     }
 
