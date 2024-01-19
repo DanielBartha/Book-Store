@@ -5,6 +5,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import Command.ShoppingCartInvoker;
+import Command.ShowBooksInCart;
+import Command.ShowSumOfPricesCommand;
 import Decorator.GiftWrappingDecorator;
 import Factory.Book;
 import Factory.BookFactory;
@@ -18,6 +21,9 @@ public class Bookstore {
     private Scanner scanner = new Scanner(System.in);
     private List<Book> bookList = new ArrayList<>();
     private List<Book> cart = new ArrayList<>();
+    private ShowBooksInCart addToCartCommand = new ShowBooksInCart();
+     private ShowSumOfPricesCommand showSumOfPricesCommand = new ShowSumOfPricesCommand();
+    private ShoppingCartInvoker shoppingCartInvoker = new ShoppingCartInvoker();
 
     private Object[][] booksInfo = {
             { "The Lord of the Rings", "J.R.R Tolkien", 60,
@@ -58,6 +64,8 @@ public class Bookstore {
         for (Object[] book : booksInfo) {
             this.bookList.add(bookFactory.createBook(book));
         }
+        shoppingCartInvoker.addCommand(addToCartCommand);
+        shoppingCartInvoker.addCommand(showSumOfPricesCommand);
         showHelp();
     }
 
@@ -197,7 +205,7 @@ public class Bookstore {
         }
     }
     private void resetShoppingCart() {
-        this.addToCartCommand = new showBooksInCart();
+        this.addToCartCommand = new ShowBooksInCart();
         this.showSumOfPricesCommand = new ShowSumOfPricesCommand();
         this.shoppingCartInvoker = new ShoppingCartInvoker();
         shoppingCartInvoker.addCommand(addToCartCommand);
