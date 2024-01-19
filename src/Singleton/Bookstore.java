@@ -196,4 +196,11 @@ public class Bookstore {
             System.out.println(wrapper.displayInfo());
         }
     }
+    private void resetShoppingCart() {
+        this.addToCartCommand = new showBooksInCart();
+        this.showSumOfPricesCommand = new ShowSumOfPricesCommand();
+        this.shoppingCartInvoker = new ShoppingCartInvoker();
+        shoppingCartInvoker.addCommand(addToCartCommand);
+        shoppingCartInvoker.addCommand(showSumOfPricesCommand);
+    }
 }
