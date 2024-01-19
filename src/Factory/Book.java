@@ -12,44 +12,46 @@ public abstract class Book {
     protected String type;
 
     protected String summary;
-  
-    protected Boolean isWrapped = false;
 
+    protected Boolean isWrapped=false;
 
     public String displayInfo() {
         return MessageFormat.format("Book title: {0}\nType: {1}\nAuthor: {2}\nPrice: {3}€\nSummary: {4}" , this.title,this.type,this.author,this.price,this.summary);
     }
-
-    public String getTitle() {
+ 
+    public String getTitle(){
         return this.title;
     }
 
-    public String getAuthor() {
+    public String getAuthor(){
         return this.author;
     }
 
-    public int getPrice() {
+    public int getPrice(){
         return this.price;
     }
 
-    public String getSummary() {
+    public String getSummary(){
         return this.summary;
     }
 
-
     public String getType(){
         return this.type;
+    }
+
+    public Boolean getIsWrapped(){
+        return this.isWrapped;
     }
 
     public void setPrice(int price){
         this.price = price;
     }
 
-    public Boolean getIsWrapped() {
-        return this.isWrapped;
-    }
-
-    public void setIsWrapped(Boolean bool) {
-        this.isWrapped = bool;
+    public void setIsWrapped(Boolean bool){
+        this.isWrapped=bool;
     }
 }
+
+
+
+

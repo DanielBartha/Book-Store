@@ -26,9 +26,9 @@ public class ShowSumOfPricesCommand implements ShoppingCartCommand{
     public int getPrice(){
         int bookPrice =0;
         for(Book book :bookList){
-            bookPrice +=book.getPrice();
+            bookPrice +=book.getPrice()+(numberOfBooksWrapped*10);
         }
-        return bookPrice +(numberOfBooksWrapped*10) ;
+        return bookPrice;
     }
     public void setNumberOfBooksWrapped(int amount){
         this.numberOfBooksWrapped= amount;
