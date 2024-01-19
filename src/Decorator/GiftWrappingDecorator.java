@@ -3,12 +3,15 @@ package Decorator;
 import Factory.Book;
 
 public class GiftWrappingDecorator extends BookDecorator {
+    private Book book;
     public GiftWrappingDecorator(Book book) {
         super(book);
+        this.book=book;
     }
 
     @Override
     public String displayInfo() {
-        return super.displayInfo() + " with Gift Wrapping";
+        book.setIsWrapped(true);
+        return book.getTitle() + " has been with wrapped ";
     }
 }
