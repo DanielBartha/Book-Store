@@ -2,12 +2,10 @@ package Factory;
 
 public class NonFictionBook extends Book {
     public NonFictionBook(String title,String author, int price, String summary) {
-        this.title = title;
+      this.title = title;
+        this.type = "Non fiction Book";
+        this.author = author;
         this.price = price;
         this.summary = summary;
-    }
-    @Override
-    public String displayInfo() {
-        return "Non-Fiction Book Info";
     }
 }
