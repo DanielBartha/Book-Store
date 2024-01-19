@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import Decorator.GiftWrappingDecorator;
 import Factory.Book;
 import Factory.BookFactory;
 import Factory.FictionBook;
@@ -136,20 +137,17 @@ public class Bookstore {
                 break;
 
             case "add-to-cart":
-                System.out.println("What book would you like to add to your cart?");
-                String addBookToCart = scanner.nextLine();
-                boolean bookFound = false;
+            System.out.println("What book would you like to add to your cart?");
+            String addBookToCart = scanner.nextLine();
+            System.out.println("Is it a gift? Would you like to wrap it? (+10€)[Y/N]");
+            String wrapInput = scanner.nextLine();
+            int idBasedOnInput = checkBookIdInList(addBookToCart);
+            if(idBasedOnInput ==-1){
+                System.out.println(MessageFormat.format("There are no such book as: {0}", addBookToCart));
+            }else{
+                askIfWrapped(wrapInput, idBasedOnInput);
                 this.addToCart(addBookToCart);
-                for (Book book : this.bookList) {
-                    String bookTitle = book.getTitle();
-                    if (addBookToCart.equalsIgnoreCase(bookTitle)) {
-                        bookFound = true;
-                        break;
-                    }
-                }
-                if (!bookFound) {
-                    System.out.println("Book not found. Please check the title and try again.");
-                }
+            }
                 break;
 
             case "show-cart":
@@ -189,6 +187,13 @@ public class Bookstore {
             System.out.println("\n"+this.bookList.get(bookId).displayInfo());
         } else {
             System.out.println("\nWe don't have that book in our store");
+        }
+    }
+
+    public void askIfWrapped(String wrapInput, int decoratedBookId) {
+        if (wrapInput.equalsIgnoreCase("y")) {
+            GiftWrappingDecorator wrapper = new GiftWrappingDecorator(this.bookList.get(decoratedBookId));
+            System.out.println(wrapper.displayInfo());
         }
     }
 }
