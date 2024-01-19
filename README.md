@@ -69,3 +69,5 @@ BookBasedOnAgeProxy class that acts as a proxy for accessing different types of 
 ### Implemented together: Singleton
 
 The class employs various design patterns, including Singleton, Command, Observer, and Decorator. Users can navigate the bookstore using commands such as displaying available books, adding to the shopping cart, checking out, and more. The code handles book information, cart management, and user input processing. Notably, it includes a Decorator (GiftWrappingDecorator) for adding gift-wrapping functionality to books in the shopping cart. The main loop continuously prompts users for commands until the "quit" command is entered. Overall, this application encapsulates bookstore functionalities, demonstrating the use of design patterns to enhance modularity, flexibility, and maintainability in the codebase.
+
+https://github.com/DanielBartha/Book-Store
